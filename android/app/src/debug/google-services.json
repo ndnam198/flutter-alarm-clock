@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "919828128791",
+    "project_id": "flutter-alarm-clock",
+    "storage_bucket": "flutter-alarm-clock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919828128791:android:fcb1a35b979d8de7f9e852",
+        "android_client_info": {
+          "package_name": "com.example.alarm_clock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919828128791-4ka9appsf5o0enm2v5fp18hvblvmm8h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAaNu-SKqrVQKi7OZY_2rfNtG9VDtP4tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919828128791-4ka9appsf5o0enm2v5fp18hvblvmm8h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919828128791:android:c1f15a1d845bdeb3f9e852",
+        "android_client_info": {
+          "package_name": "com.example.alarm_clock.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919828128791-4ka9appsf5o0enm2v5fp18hvblvmm8h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAaNu-SKqrVQKi7OZY_2rfNtG9VDtP4tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919828128791-4ka9appsf5o0enm2v5fp18hvblvmm8h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

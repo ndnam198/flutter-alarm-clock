@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -47,17 +48,40 @@ android {
         applicationId "com.example.alarm_clock"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", "AlarmPlusDebug"
+        }
+
+        profile {
+            applicationIdSuffix ".profile"
+            resValue "string", "app_name", "AlarmPlusProfile"
+        }
+
         release {
+            resValue "string", "app_name", "AlarmPlus"
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+    
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            flavorDimensions "default"
+        }
+        
+        prod {
+            flavorDimensions "default"
         }
     }
 }
@@ -68,4 +92,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation "com.google.firebase:firebase-analytics-ktx"
 }
