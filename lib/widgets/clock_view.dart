@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:alarm_clock/theme/colors.dart';
@@ -6,27 +7,50 @@ import 'package:flutter/material.dart';
 const _angleToRadian = pi / 180;
 
 class ClockView extends StatefulWidget {
-  const ClockView({Key? key}) : super(key: key);
+  const ClockView({Key? key, required this.size}) : super(key: key);
+
+  final double size;
 
   @override
-  _ClockViewState createState() => _ClockViewState();
+  State<ClockView> createState() => _ClockViewState();
 }
 
 class _ClockViewState extends State<ClockView> {
+  late Timer timer;
+  var now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    // timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   setState(() {
+    //     now = DateTime.now();
+    //   });
+    // });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
-      height: 300,
+      width: widget.size,
+      height: widget.size,
       child: CustomPaint(
-        painter: ClockPainter(),
+        painter: ClockPainter(now),
       ),
     );
   }
 }
 
 class ClockPainter extends CustomPainter {
-  final dt = DateTime.now();
+  ClockPainter(this.now) : super();
+
+  final DateTime now;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -42,32 +66,32 @@ class ClockPainter extends CustomPainter {
     // hourHand moves in small angle and more subtly, total minute will be used to demonstrate this movement
     // dt.hour % 12 to get hour in 12-hour format, then add up to get total minute from 00:00
     final hourAngle =
-        (-90 + (dt.hour % 12 * 60 + dt.minute) * 0.5) * _angleToRadian;
+        (-90 + (now.hour % 12 * 60 + now.minute) * 0.5) * _angleToRadian;
     final hourHandX = centerX + hourLength * cos(hourAngle);
     final hourHandY = centerY + hourLength * sin(hourAngle);
 
-    final minAngle = (-90 + dt.minute * 6) * _angleToRadian; // 360/60
+    final minAngle = (-90 + now.minute * 6) * _angleToRadian; // 360/60
     final minHandX = centerX + minLength * cos(minAngle);
     final minHandY = centerY + minLength * sin(minAngle);
 
-    final secAngle = (-90 + dt.second * 6) * _angleToRadian; // 360/60
+    final secAngle = (-90 + now.second * 6) * _angleToRadian; // 360/60
     final secHandX = centerX + secLength * cos(secAngle);
     final secHandY = centerY + secLength * sin(secAngle);
 
-    final fillBrush = Paint()..color = AppColors.lightBlue;
+    final fillBrush = Paint()..color = CustomColors.clockBG;
 
     final outlineBrush = Paint()
-      ..color = AppColors.lightBackground
+      ..color = CustomColors.clockOutline
       ..style = PaintingStyle.stroke
       ..strokeWidth = 16;
 
     var dashBrush = Paint()
-      ..color = AppColors.lightBackground
+      ..color = CustomColors.clockOutline
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 1;
 
-    final centerFillBrush = Paint()..color = AppColors.lightBackground;
+    final centerFillBrush = Paint()..color = CustomColors.clockOutline;
 
     final secHandBrush = Paint()
       ..color = Colors.orange[300]!
